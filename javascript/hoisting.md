@@ -155,3 +155,7 @@ foo = function() {
 유명 함수 표현식이 자기 자신을 외부 scope에서 호출한 경우다.  
 
 `bar`가 블럭 scope에 있기 때문에 global scope에선 `ReferenceError`가 발생한다.  
+
+## 참조
+
+- You-Don't-Kown-JS
