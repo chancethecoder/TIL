@@ -1,3 +1,4 @@
+
 # Strong parameters
 
 [Strong parameters](http://api.rubyonrails.org/classes/ActionController/StrongParameters.html)는 루비 온 레일즈에서 매개변수를 검증하는 방법 중 하나다.
@@ -27,7 +28,7 @@ class UserController
 
   def create_user
     whitelist = ['name', 'age', 'email', 'address']
-    unpermitted = whitelist - params.keys
+    unpermitted = params.keys - whitelist
     if unpermitted.empty?
       user = User.create(params)
       user.save
@@ -38,9 +39,9 @@ end
 
 단순히 파라미터를 일일이 확인하면서 검사를 수행하는 코드를 작성하면 된다. **하지만, 좋은 방법(패턴)은 아닐 수 있다.**
 
-각각의 액션 마다 파라미터를 체크하는 코드가 지저분하게 들어간다면, whitelist를 변경하기 힘들고 재사용성도 좋지 않을 것이다.
+각각의 액션 마다 파라미터를 체크하는 코드가 지저분하게 들어간다면, whitelist가 변경될 때 마다 수정하기 힘들고 재사용성도 좋지 않을 것이다.
 
-이러한 것을 패턴화 한 것이 **strong parameter**다.
+이러한 점을 해결하기 위해 패턴화 한 것이 **strong parameter**다.
 
 ## Strong parameter 사용 예제
 
@@ -55,6 +56,10 @@ class UserController
     user = User.create(user_params)
     user.save
   end
+
+  # private을 통해
+  # encapsulation의 관점으로 접근한다는 것을 알 수 있다
+  private
 
   def user_params
     params.permit(:name, :age, :email, :address)
